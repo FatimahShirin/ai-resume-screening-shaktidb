@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="page-header">
+    <p class="eyebrow">ShaktiDB Mini-Project</p>
+    <h2>AI-Based Resume Screening System</h2>
+</section>
+
+<section class="stats">
+    <article>
+        <span>{{ stats.candidates }}</span>
+        <p>Candidates</p>
+    </article>
+    <article>
+        <span>{{ stats.jobs }}</span>
+        <p>Jobs</p>
+    </article>
+    <article>
+        <span>{{ stats.applications }}</span>
+        <p>Saved Rankings</p>
+    </article>
+</section>
+
+<section class="grid two">
+    <div>
+        <h3>Recent Candidates</h3>
+        <table>
+            <thead>
+                <tr><th>Name</th><th>Email</th><th>Skills</th></tr>
+            </thead>
+            <tbody>
+                {% for candidate in recent_candidates %}
+                <tr>
+                    <td>{{ candidate.full_name }}</td>
+                    <td>{{ candidate.email }}</td>
+                    <td>{{ candidate.skills }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <h3>Recent Jobs</h3>
+        <table>
+            <thead>
+                <tr><th>Title</th><th>Required Skills</th></tr>
+            </thead>
+            <tbody>
+                {% for job in recent_jobs %}
+                <tr>
+                    <td>{{ job.title }}</td>
+                    <td>{{ job.required_skills }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}

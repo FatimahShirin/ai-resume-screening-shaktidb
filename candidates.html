@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="page-header">
+    <p class="eyebrow">Candidate Database</p>
+    <h2>Add and View Candidates</h2>
+</section>
+
+<form method="post" class="form-grid">
+    <label>Full Name<input name="full_name" required></label>
+    <label>Email<input name="email" type="email" required></label>
+    <label>Phone<input name="phone"></label>
+    <label>Education<input name="education"></label>
+    <label>Experience Years<input name="experience_years" type="number" min="0" value="0"></label>
+    <label>Skills<textarea name="skills" required placeholder="Python, SQL, Flask"></textarea></label>
+    <label class="wide">Resume Summary<textarea name="resume_summary"></textarea></label>
+    <button type="submit">Add Candidate</button>
+</form>
+
+<h3>Candidate List</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th><th>Email</th><th>Phone</th><th>Education</th><th>Experience</th><th>Skills</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for candidate in candidates %}
+        <tr>
+            <td>{{ candidate.full_name }}</td>
+            <td>{{ candidate.email }}</td>
+            <td>{{ candidate.phone or "-" }}</td>
+            <td>{{ candidate.education or "-" }}</td>
+            <td>{{ candidate.experience_years }}</td>
+            <td>{{ candidate.skills }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

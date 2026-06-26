@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="page-header">
+    <p class="eyebrow">Skill Matching</p>
+    <h2>Candidate Rankings</h2>
+</section>
+
+<form method="get" class="toolbar">
+    <label>Select Job
+        <select name="job_id" required>
+            <option value="">Choose a job</option>
+            {% for job in jobs %}
+                <option value="{{ job.job_id }}" {% if selected_job and selected_job.job_id == job.job_id %}selected{% endif %}>
+                    {{ job.title }}
+                </option>
+            {% endfor %}
+        </select>
+    </label>
+    <button type="submit">Rank Candidates</button>
+</form>
+
+{% if selected_job %}
+<section class="selected">
+    <h3>{{ selected_job.title }}</h3>
+    <p><strong>Required Skills:</strong> {{ selected_job.required_skills }}</p>
+</section>
+
+<form method="post">
+    <input type="hidden" name="job_id" value="{{ selected_job.job_id }}">
+    <button type="submit">Save Ranking to ShaktiDB</button>
+</form>
+
+<table>
+    <thead>
+        <tr><th>Rank</th><th>Candidate</th><th>Email</th><th>Skills</th><th>Matched Skills</th><th>Score</th></tr>
+    </thead>
+    <tbody>
+        {% for candidate in ranked_candidates %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ candidate.full_name }}</td>
+            <td>{{ candidate.email }}</td>
+            <td>{{ candidate.skills }}</td>
+            <td>{{ candidate.matched_skills }}</td>
+            <td><span class="score">{{ candidate.score }}%</span></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+{% endblock %}
